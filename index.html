@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>Ethical Hacker</title>
     <style>
-        /* Full-screen background for particles */
-        #particles-js {
+        /* Full-screen background for hacker effect */
+        #hacker-bg {
             position: fixed;
             width: 100%;
             height: 100%;
             background: black;
             z-index: -1;
+            overflow: hidden;
         }
 
         /* Main content styling */
         body {
-            color: #F4C542;
+            color: #00ff00; /* Hacker green */
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
             margin: 0;
             padding: 0;
         }
@@ -29,71 +30,95 @@
             z-index: 1;
         }
 
-        .snail-icon {
-            font-size: 100px;
+        .hacker-img {
+            width: 150px;
+            height: auto;
         }
 
         .social-links a {
             margin: 10px;
-            color: #F4C542;
+            color: #00ff00;
             font-size: 30px;
             text-decoration: none;
+            display: inline-block;
+        }
+
+        .social-links img {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.2);
         }
 
         .refresh-button {
-            background-color: #F4C542;
+            background-color: #00ff00;
+            color: black;
             padding: 10px 20px;
             border: none;
             font-size: 20px;
             cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
     <!-- Background Animation -->
-    <div id="particles-js"></div>
+    <canvas id="hacker-bg"></canvas>
 
     <!-- Main Content -->
     <div class="container">
-        <h1>Please check in later.</h1>
-        <p>I am currently out for a sunlight break.</p>
-        <div class="snail-icon">🐌</div>
+        <h1>System Breached...</h1>
+        <p>Unauthorized Access Detected. Logging Out...</p>
+        <img class="hacker-img" src="https://i.imgur.com/yzq0QoW.png" alt="Hacker Image">
         <div class="social-links">
-            <a href="https://github.com/" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
-            <a href="https://instagram.com/shamish_thakuri" target="_blank">Instagram</a>
-            <a href="https://www.facebook.com/shamish.malla" target="_blank">Facebook</a>
+            <a href="https://github.com/SugamDarklord10" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
+            <a href="https://linkedin.com/sugam-malla" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"></a>
+            <a href="https://instagram.com/shamish_thakuri" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com/shamish.malla" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
         </div>
-        <button class="refresh-button" onclick="location.reload()">Refresh</button>
+        <button class="refresh-button" onclick="location.reload()">Restart System</button>
     </div>
 
-    <!-- Particles.js Script -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- JavaScript for Hacker Background Effect -->
     <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 100,
-                    "density": { "enable": true, "value_area": 800 }
-                },
-                "color": { "value": "#F4C542" },
-                "shape": {
-                    "type": "circle",
-                    "stroke": { "width": 0, "color": "#000000" },
-                    "polygon": { "nb_sides": 5 },
-                },
-                "opacity": { "value": 0.5, "random": false },
-                "size": { "value": 3, "random": true },
-                "move": { "enable": true, "speed": 2 }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": true, "mode": "grab" },
-                    "onclick": { "enable": true, "mode": "push" },
+        const canvas = document.getElementById("hacker-bg");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "010101 HACKER SYSTEM ERROR 0110 1010 ACCESS DENIED 1010".split("");
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00ff00";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+                    drops[i] = 0;
                 }
+                drops[i]++;
             }
+        }
+
+        setInterval(draw, 50);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
     </script>
 
